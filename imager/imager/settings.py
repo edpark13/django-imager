@@ -61,8 +61,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'imagerdb',
-        'USER': 'efrain-petercamacho',
-        #edward
+        # 'USER': 'efrain-petercamacho',
+        'USER': 'edward',
     }
 }
 

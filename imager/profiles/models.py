@@ -1,11 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
 from django.utils.encoding import python_2_unicode_compatible
 
 
 class ActiveProfileManager(models.Manager):
-    """Inheriting et_queryset, return only active users."""
+    """
+    A manager called when active is called in ImagerProfile 
+
+    return a list of active ImagerProfile
+    """
     def get_queryset(self):
         # calls default method with super
         qs = super(ActiveProfileManager, self).get_queryset()
@@ -14,6 +17,7 @@ class ActiveProfileManager(models.Manager):
 
 @python_2_unicode_compatible
 class ImagerProfile(models.Model):
+    """ImagerProfile class with instances that we want in a image app"""
     picture = models.ImageField(
         upload_to='profile_images',
         height_field='100px',
@@ -33,11 +37,6 @@ class ImagerProfile(models.Model):
 
     def is_active(self):
         return self.user.is_active
-
-    # # @classmethod
-    # def active(cls):
-    #     qs = cls.get_queryset()
-    #     return qs.filter(user__is_active=True)
 
     objects = models.Manager()
     active = ActiveProfileManager()
