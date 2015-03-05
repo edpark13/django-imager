@@ -20,8 +20,8 @@ class ImagerProfile(models.Model):
         width_field='100px',
         blank=True)
     user = models.OneToOneField(User, related_name='profile')
-    phone = models.IntegerField(max_length=11)
-    birthday = models.DateField()
+    phone = models.IntegerField(max_length=11, null=True)
+    birthday = models.DateField(null=True)
     picture_privacy = models.BooleanField(default=True)
     phone_privacy = models.BooleanField(default=True)
     birthday_privacy = models.BooleanField(default=True)
@@ -29,7 +29,7 @@ class ImagerProfile(models.Model):
     email_privacy = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.user
+        return self.user.username
 
     def is_active(self):
         return self.user.is_active

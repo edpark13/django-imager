@@ -15,4 +15,4 @@ class Test_ImagerProfile(TestCase):
         self.usertest = UserFactory.create()
 
     def test_create(self):
-        assert self.usertest.ImagerProfile
+        assert self.usertest.username == 'john'
