@@ -31,6 +31,8 @@ class ImagerProfile(models.Model):
     birthday_privacy = models.BooleanField(default=True)
     name_privacy = models.BooleanField(default=True)
     email_privacy = models.BooleanField(default=True)
+    following = models.ManyToManyField('ImagerProfile', symmetrical=False, 
+        related_name='followers')
 
     def __str__(self):
         return self.user.username
@@ -40,3 +42,8 @@ class ImagerProfile(models.Model):
 
     objects = models.Manager()
     active = ActiveProfileManager()
+
+    def follow(self, other_profile):
+        """Defines this user as following other_profile."""
+        self.following.add(other_profile)
+
