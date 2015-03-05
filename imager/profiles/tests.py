@@ -26,4 +26,20 @@ class Test_ImagerProfile(TestCase):
         self.sally.delete()
         assert self.sally.profile not in ImagerProfile.objects.all()
 
-    # def test_is_active(self):
+    def test_active(self):
+        assert self.usertest.profile in ImagerProfile.active.all()
+
+    def test_inactive(self):
+        self.usertest.is_active = False
+        self.usertest.save()
+        print ImagerProfile.active.all()
+        assert self.usertest.profile not in ImagerProfile.active.all()
+
+    def test_reactivate(self):
+        self.usertest.is_active = True
+        self.usertest.save()
+        assert self.usertest.is_active is True
+
+
+
+

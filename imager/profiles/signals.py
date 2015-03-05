@@ -8,7 +8,7 @@ def create_profile(sender, **kwargs):
     if kwargs.get('created', False):
         ImagerProfile(user=kwargs.get('instance')).save()
     else:
-        raise AttributeError('Something Bad Happened')
+        print 'Something Bad Happened'
 
 
 @receiver(pre_delete, sender=User)
