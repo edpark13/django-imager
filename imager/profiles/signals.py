@@ -3,7 +3,6 @@ from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
 from models import ImagerProfile
 
-
 @receiver(post_save, sender=User)
 def create_profile(sender, **kwargs):
     if kwargs.get('created', False):
