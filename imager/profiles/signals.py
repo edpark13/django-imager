@@ -6,12 +6,12 @@ from models import ImagerProfile
 
 @receiver(post_save, sender=User)
 def create_profile(sender, **kwargs):
-    if kwargs.get('created', None):
-        profile = ImagerProfile(user=kwargs.get('instance'))
-        profile.save()
+    if kwargs.get('created', False):
+        ImagerProfile(user=kwargs.get('instance')).save()
+    else:
+        raise AttributeError('Something Bad Happened')
 
 
 @receiver(pre_delete, sender=User)
 def delete_profile(sender, **kwargs):
-    profile = ImagerProfile.objects.get(user=kwargs.get('instance'))
-    profile.delete()
+    ImagerProfile.objects.get(user=kwargs.get('instance')).delete()
