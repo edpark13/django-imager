@@ -60,7 +60,7 @@ class ImagerProfile(models.Model):
         # return set(self.followers.all()).difference(set(self.blocking.all()))
         qfollowers = self.followers.all()
         qblocking = self.blocking.all()
-        ImagerProfile.objects.get(Q(qfollowers) & ~Q(qblocking))
+        return Q(qfollowers) & ~Q(qblocking)
 
 
 

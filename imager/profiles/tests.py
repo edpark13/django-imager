@@ -75,6 +75,9 @@ class Test_ImagerProfile(TestCase):
         self.johnny.follow(self.may)
         self.may.follow(self.johnny)
         self.johnny.block(self.may)
+        print self.johnny.list_followers()
         assert self.may in self.johnny.blocking.all()
-        print self.johnny.list_followers
         assert self.may not in self.johnny.list_followers()
+        assert self.dave in self.johnny.list_followers()
+        assert self.johnny not in self.may.list_followers()
+
