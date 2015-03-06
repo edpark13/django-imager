@@ -17,10 +17,10 @@ class Test_ImagerProfile(TestCase):
     def setUp(self):
         """Creats the User defined in UserFactory"""
         self.usertest = UserFactory()
-        self.johnny = UserFactory(username='johnny')
-        self.may = UserFactory(username='may')
-        self.dave = UserFactory(username='dave')
-        self.sally = UserFactory(username='sally')
+        self.johnny = UserFactory(username='johnny').profile
+        self.may = UserFactory(username='may').profile
+        self.dave = UserFactory(username='dave').profile
+        self.sally = UserFactory(username='sally').profile
 
     def test_create(self):
         """Test that a profile is created with a User creation"""
@@ -55,18 +55,34 @@ class Test_ImagerProfile(TestCase):
         assert self.usertest.is_active is True
 
     def test_follow(self):
-        assert len(self.dave.profile.following.all()) == 0
-        self.dave.profile.follow(self.sally.profile)
-        assert self.sally.profile in  \
-               self.dave.profile.following.filter(user=self.sally)
+        assert len(self.dave.following.all()) == 0
+        self.dave.follow(self.sally)
+        assert self.sally in  \
+            self.dave.following.filter(user=self.sally)
 
     def test_following(self):
-        self.johnny.profile.follow(self.may.profile)
-        assert self.johnny.profile in self.may.profile.followers.all()
+        self.johnny.follow(self.may)
+        assert self.johnny in self.may._followers.all()
 
     def test_unfollow(self):
-        self.johnny.profile.follow(self.may.profile)
-        self.johnny.profile.unfollow(self.may.profile)
-        assert len(self.johnny.profile.following.all()) == 0
+        self.johnny.follow(self.may)
+        self.johnny.unfollow(self.may)
+        assert len(self.johnny.following.all()) == 0
+        assert len(self.may._followers.all()) == 0
+
+    def test_block(self):
+        self.dave.follow(self.johnny)
+        self.johnny.follow(self.may)
+        self.may.follow(self.johnny)
+        self.johnny.block(self.may)
+        assert self.may in self.johnny.blocking.all()
+        print self.johnny.followers().all()
+        assert self.may not in self.johnny.followers().all()
+        assert self.dave in self.johnny.followers()
+
+
+
+
+
 
 

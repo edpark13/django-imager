@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.encoding import python_2_unicode_compatible
+from django.db.models import Q
 
 
 class ActiveProfileManager(models.Manager):
@@ -32,9 +33,9 @@ class ImagerProfile(models.Model):
     name_privacy = models.BooleanField(default=True)
     email_privacy = models.BooleanField(default=True)
     following = models.ManyToManyField('ImagerProfile', symmetrical=False,
-                                       related_name='followers')
-    block = models.ManyToManyField('ImagerProfile', symmetrical=True,
-                                   related_name='+')
+                                       related_name='_followers')
+    blocking = models.ManyToManyField('ImagerProfile', symmetrical=False,
+                                      related_name='blockers')
 
     def __str__(self):
         return self.user.username
@@ -53,16 +54,11 @@ class ImagerProfile(models.Model):
         self.following.remove(other_profile)
 
     def block(self, other_profile):
-        self.block.add(other_profile)
-        self.following.remove(other_profile)
+        self.blocking.add(other_profile)
 
-    def unblocked_followers():
-        self.block.remove(other_profile)
-
-
-
-
-
+    def followers(self):
+        # return set(self.followers.all()).difference(set(self.blocking.all()))
+        return ImagerProfile.objects.filter(Q(_followers=self) & ~Q(blockers=self))
 
 
 
