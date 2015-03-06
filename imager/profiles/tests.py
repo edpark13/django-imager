@@ -17,6 +17,10 @@ class Test_ImagerProfile(TestCase):
     def setUp(self):
         """Creats the User defined in UserFactory"""
         self.usertest = UserFactory()
+        self.johnny = UserFactory(username='johnny')
+        self.may = UserFactory(username='may')
+        self.dave = UserFactory(username='dave')
+        self.sally = UserFactory(username='sally')
 
     def test_create(self):
         """Test that a profile is created with a User creation"""
@@ -49,4 +53,20 @@ class Test_ImagerProfile(TestCase):
         self.usertest.is_active = True
         self.usertest.save()
         assert self.usertest.is_active is True
+
+    def test_follow(self):
+        assert len(self.dave.profile.following.all()) == 0
+        self.dave.profile.follow(self.sally.profile)
+        assert self.sally.profile in  \
+               self.dave.profile.following.filter(user=self.sally)
+
+    def test_following(self):
+        self.johnny.profile.follow(self.may.profile)
+        assert self.johnny.profile in self.may.profile.followers.all()
+
+    def test_unfollow(self):
+        self.johnny.profile.follow(self.may.profile)
+        self.johnny.profile.unfollow(self.may.profile)
+        assert len(self.johnny.profile.following.all()) == 0
+
 
