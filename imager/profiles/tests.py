@@ -72,11 +72,12 @@ class Test_ImagerProfile(TestCase):
 
     def test_block(self):
         self.dave.follow(self.johnny)
-        self.johnny.follow(self.may)
         self.may.follow(self.johnny)
+        self.johnny.follow(self.may)
         self.johnny.block(self.may)
         assert self.may in self.johnny.blocking.all()
-        print self.johnny.followers().all()
+        print self.johnny.followers()
+        print self.johnny._followers.all()
         assert self.may not in self.johnny.followers().all()
         assert self.dave in self.johnny.followers()
 
