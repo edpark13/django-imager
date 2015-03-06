@@ -56,6 +56,8 @@ class ImagerProfile(models.Model):
         self.block.add(other_profile)
         self.following.remove(other_profile)
 
+    def unblocked_followers():
+        self.block.remove(other_profile)
 
 
 
