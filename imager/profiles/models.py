@@ -33,9 +33,9 @@ class ImagerProfile(models.Model):
     name_privacy = models.BooleanField(default=True)
     email_privacy = models.BooleanField(default=True)
     following = models.ManyToManyField('ImagerProfile', symmetrical=False,
-                                       related_name='followers')
-    blocking = models.ManyToManyField('ImagerProfile', symmetrical=True,
-                                   related_name='blockers')
+                                       related_name='_followers')
+    blocking = models.ManyToManyField('ImagerProfile', symmetrical=False,
+                                      related_name='blockers')
 
     def __str__(self):
         return self.user.username
@@ -56,12 +56,9 @@ class ImagerProfile(models.Model):
     def block(self, other_profile):
         self.blocking.add(other_profile)
 
-    def list_followers(self):
+    def followers(self):
         # return set(self.followers.all()).difference(set(self.blocking.all()))
-        qfollowers = self.followers.all()
-        qblocking = self.blocking.all()
-        return Q(qfollowers) & ~Q(qblocking)
-
+        return ImagerProfile.objects.filter(Q(following=self) & ~Q(blockers=self) & ~Q(blocking=self))
 
 
 

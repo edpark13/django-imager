@@ -58,26 +58,35 @@ class Test_ImagerProfile(TestCase):
         assert len(self.dave.following.all()) == 0
         self.dave.follow(self.sally)
         assert self.sally in  \
-               self.dave.following.filter(user=self.sally)
+            self.dave.following.filter(user=self.sally)
 
     def test_following(self):
         self.johnny.follow(self.may)
-        assert self.johnny in self.may.followers.all()
+        assert self.johnny in self.may._followers.all()
 
     def test_unfollow(self):
         self.johnny.follow(self.may)
         self.johnny.unfollow(self.may)
         assert len(self.johnny.following.all()) == 0
-        assert len(self.may.followers.all()) == 0
+        assert len(self.may._followers.all()) == 0
 
     def test_block(self):
         self.dave.follow(self.johnny)
         self.johnny.follow(self.may)
         self.may.follow(self.johnny)
         self.johnny.block(self.may)
-        print self.johnny.list_followers()
+        print self.dave.following.all()
+        print self.johnny._followers.all()
+        print ImagerProfile.objects.filter(following=self.johnny)
         assert self.may in self.johnny.blocking.all()
-        assert self.may not in self.johnny.list_followers()
-        assert self.dave in self.johnny.list_followers()
-        assert self.johnny not in self.may.list_followers()
+        # print self.johnny.followers().all()
+        assert self.may not in self.johnny.followers().all()
+        assert self.dave in self.johnny.followers().all()
+
+
+
+
+
+
+
 
