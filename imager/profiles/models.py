@@ -51,17 +51,22 @@ class ImagerProfile(models.Model):
         self.following.add(other_profile)
 
     def unfollow(self, other_profile):
+        """Removes passed user from relations table"""
         self.following.remove(other_profile)
 
     def block(self, other_profile):
+        """Updates blocking column to capture that a user is blocking input
+        user profile - does not change other column data"""
         self.blocking.add(other_profile)
 
     def unblock(self, other_profile):
+        """Updates blocking column to capture that a user is no-longer
+        blocking input user profile - does not change other column data"""
         self.blocking.remove(other_profile)
 
     def followers(self):
-        # return set(self.followers.all()).difference(set(self.blocking.all()))
-
+        """Lits all followers who are not currently blocked in the
+        relationship table"""
         return ImagerProfile.objects.filter(Q(following=self) & ~Q(blockers=self) & ~Q(blocking=self))
 
 
