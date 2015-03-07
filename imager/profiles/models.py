@@ -58,7 +58,9 @@ class ImagerProfile(models.Model):
 
     def followers(self):
         # return set(self.followers.all()).difference(set(self.blocking.all()))
-        return ImagerProfile.objects.filter(Q(following=self)).all()
+
+        return ImagerProfile.objects.filter(Q(following=self) & ~Q(blockers=self) & ~Q(blocking=self))
+
 
 
 
