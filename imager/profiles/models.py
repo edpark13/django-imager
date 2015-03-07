@@ -56,6 +56,9 @@ class ImagerProfile(models.Model):
     def block(self, other_profile):
         self.blocking.add(other_profile)
 
+    def unblock(self, other_profile):
+        self.blocking.remove(other_profile)
+
     def followers(self):
         # return set(self.followers.all()).difference(set(self.blocking.all()))
 
