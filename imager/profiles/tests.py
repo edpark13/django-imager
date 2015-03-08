@@ -126,7 +126,6 @@ class Test_Photo(TestCase):
         assert self.photo.date_modified == datetime.date.today()
 
     def test_viewphoto(self):
-        print self.photo
         assert self.photo in self.photo.profile.view_photos().all()
 
 
@@ -134,15 +133,19 @@ class AlbumFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Albums
         django_get_or_create = ('profile', 'published',)
-    profile = UserFactory.create().profile
+    # profile = UserFactory.create().profile
     published = 'pub'
 
 
 class Test_Album(TestCase):
     def setUp(self):
-        self.album = AlbumFactory.create(title='album',
+        self.user = UserFactory(username='john').profile
+        self.album = AlbumFactory.create(profile=self.user,
+                                         title='album',
                                          description='Test Album')
-        self.photo = PhotoFactory.create(title='test', description='test photo')
+        self.photo = PhotoFactory.create(profile=self.user,
+                                         title='test', 
+                                         description='test photo')
 
     def test_add_photo(self):
         """Add a photo to a album."""
@@ -150,8 +153,19 @@ class Test_Album(TestCase):
         assert self.album.profile == self.photo.profile
         self.album.photos.add(self.photo)
         assert self.photo in self.album.photos.all()
-        # self.photo.album.add(self.album)
-        # self.assertEqual(self.photo.album.all()[0], self.album)
+    
+    def test_view_albums(self):
+        assert self.album in self.user.view_albums().all()
 
+    def test_cover(self):
+        assert self.album.cover is None
+        self.album.cover = self.photo
+        assert self.album.cover == self.photo
 
-
+    def test_view_other_photo(self):
+        self.bob = UserFactory(username='bob').profile
+        self.bob.follow(self.user)
+        assert self.bob in self.user.followers().all()
+        assert self.photo in self.bob.view_others_photo(self.user).all()
+        self.user.block(self.bob)
+        assert 'You are not following them' == self.bob.view_others_photo(self.user)

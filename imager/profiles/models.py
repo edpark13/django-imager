@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.encoding import python_2_unicode_compatible
 from django.db.models import Q
-from imager_images.models import Photo
+from imager_images.models import Photo, Albums
 
 
 class ActiveProfileManager(models.Manager):
@@ -77,5 +77,14 @@ class ImagerProfile(models.Model):
     def view_photos(self):
         """Photos that the user can view"""
         return Photo.objects.filter(profile=self)
+
+    def view_albums(self):
+        return Albums.objects.filter(profile=self)
+
+    def view_others_photo(self, other):
+        if self not in other.followers():
+            return 'You are not following them'
+        elif self in other.followers():
+            return Photo.objects.filter(Q(published='pub') | Q(published='sha'))
 
 
