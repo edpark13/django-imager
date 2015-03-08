@@ -2,6 +2,7 @@ from django.test import TestCase
 import factory
 from django.contrib.auth.models import User
 from profiles.models import ImagerProfile
+from imager_images.models import Photo
 
 
 class UserFactory(factory.django.DjangoModelFactory):
@@ -11,7 +12,6 @@ class UserFactory(factory.django.DjangoModelFactory):
         django_get_or_create = ('username',)
 
     username = 'john'
-
 
 class Test_ImagerProfile(TestCase):
     def setUp(self):
@@ -99,8 +99,21 @@ class Test_ImagerProfile(TestCase):
 ###########################
 # Testing Images
 ###########################
+class PhotoFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Photo
+        django_get_or_create = ('profile', 'published',)
+
+    # image = factory.django.ImageField(color='blue')
+    profile = UserFactory.create().profile
+    published = 'pub'
+
+class Test_Photo(TestCase):
+    def setUp(self):
+        self.photo = PhotoFactory.create(title='test', description='test photo')
 
     def test_view_photos(self):
-        
+        assert self.photo.title == 'test'
+        assert self.photo.description == 'test photo'
 
 
