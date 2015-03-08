@@ -70,6 +70,10 @@ class ImagerProfile(models.Model):
         relationship table"""
         return ImagerProfile.objects.filter(Q(following=self) & ~Q(blockers=self) & ~Q(blocking=self))
 
+    # def create_photo(self):
+        # Might need for photo creation at a future point
+        # imager_images.Photo().save()
+
     def view_photos(self):
         """Photos that the user can view"""
         return imager_images.Photo.objects.filter(photos=self)
