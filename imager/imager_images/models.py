@@ -22,6 +22,7 @@ class Photo(models.Model):
     def __str__(self):
         return self.pk
 
+
 @python_2_unicode_compatible
 class Albums(models.Model):
     profile = models.ForeignKey('profile.ImagerProfile')
@@ -39,4 +40,4 @@ class Albums(models.Model):
     def __str__(self):
         return self.pk
 
-    pass
+
