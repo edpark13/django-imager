@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.encoding import python_2_unicode_compatible
 from django.db.models import Q
-from imager_images.models import imager_images
+from imager_images.models import Photo
 
 
 class ActiveProfileManager(models.Manager):
@@ -76,6 +76,6 @@ class ImagerProfile(models.Model):
 
     def view_photos(self):
         """Photos that the user can view"""
-        return imager_images.Photo.objects.filter(photos=self)
+        return Photo.objects.filter(profile=self)
 
 

@@ -2,6 +2,8 @@ from django.test import TestCase
 import factory
 from django.contrib.auth.models import User
 from profiles.models import ImagerProfile
+from imager_images.models import Photo, Albums
+import datetime
 
 
 class UserFactory(factory.django.DjangoModelFactory):
@@ -11,7 +13,6 @@ class UserFactory(factory.django.DjangoModelFactory):
         django_get_or_create = ('username',)
 
     username = 'john'
-
 
 class Test_ImagerProfile(TestCase):
     def setUp(self):
@@ -100,7 +101,57 @@ class Test_ImagerProfile(TestCase):
 # Testing Images
 ###########################
 
+
+class PhotoFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Photo
+        django_get_or_create = ('profile', 'published',)
+
+    # image = factory.django.ImageField(color='blue')
+    profile = UserFactory.create().profile
+    published = 'pub'
+
+
+class Test_Photo(TestCase):
+    def setUp(self):
+        self.photo = PhotoFactory.create(title='test', description='test photo')
+
     def test_view_photos(self):
-        
+        assert self.photo.title == 'test'
+        assert self.photo.description == 'test photo'
+
+    def test_photo_dates(self):
+        assert self.photo.date_uploaded == datetime.date.today()
+        assert self.photo.date_published == datetime.date.today()
+        assert self.photo.date_modified == datetime.date.today()
+
+    def test_viewphoto(self):
+        print self.photo
+        assert self.photo in self.photo.profile.view_photos().all()
+
+
+class AlbumFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Albums
+        django_get_or_create = ('profile', 'published',)
+    profile = UserFactory.create().profile
+    published = 'pub'
+
+
+class Test_Album(TestCase):
+    def setUp(self):
+        self.album = AlbumFactory.create(title='album',
+                                         description='Test Album')
+        self.photo = PhotoFactory.create(title='test', description='test photo')
+
+    def test_add_photo(self):
+        """Add a photo to a album."""
+        assert len(self.album.photos.all()) == 0
+        assert self.album.profile == self.photo.profile
+        self.album.photos.add(self.photo)
+        assert self.photo in self.album.photos.all()
+        # self.photo.album.add(self.album)
+        # self.assertEqual(self.photo.album.all()[0], self.album)
+
 
 
