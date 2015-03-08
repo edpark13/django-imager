@@ -96,9 +96,11 @@ class Test_ImagerProfile(TestCase):
         assert self.may not in self.johnny.blocking.all()
         assert self.may in self.johnny.followers()
 
+###########################
+# Testing Images
+###########################
 
-
-
-
+    def test_view_photos(self):
+        
 
 
