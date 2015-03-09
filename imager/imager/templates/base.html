@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css" />
+    <title>{% block title %}E^2{% endblock %}</title>
+</head>
+<header>
+    <p style="float:right;margin-right:10px">login</p>
+</header>
+<body>
+    <div id="sidebar">
+        {% block sidebar %}
+        <ul>
+        </ul>
+        {% endblock %}
+    </div>
+
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
