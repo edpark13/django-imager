@@ -16,7 +16,7 @@ class Photo(models.Model):
     date_modified = models.DateField(auto_now=True)
     date_published = models.DateField(auto_now=True)
     published = models.CharField(choices=privacy_choices,
-                                 default='private', max_length=3)
+                                 default='pri', max_length=3)
     profile = models.ForeignKey('profiles.ImagerProfile',
                                 related_name='photos')
 
@@ -35,7 +35,7 @@ class Albums(models.Model):
     date_modified = models.DateField(auto_now=True)
     date_published = models.DateField(auto_now=True)
     published = models.CharField(choices=privacy_choices,
-                                 default='private', max_length=3)
+                                 default='pri', max_length=3)
     cover = models.ForeignKey('Photo', null=True, blank=True)
 
     def __str__(self):
