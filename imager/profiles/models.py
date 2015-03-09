@@ -7,8 +7,7 @@ from imager_images.models import Photo, Albums
 
 class ActiveProfileManager(models.Manager):
     """
-    A manager called when active is called in ImagerProfile 
-
+    A manager called when active is called in ImagerProfile
     return a list of active ImagerProfile
     """
     def get_queryset(self):
