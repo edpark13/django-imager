@@ -6,10 +6,12 @@ from django.template.context import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.shortcuts import render_to_response
+from imager_images.models import get_random_picture
 
 
 def home(request):
-    context = {}
+    picture = get_random_picture()
+    context = {'picture': picture}
     return render(request, 'home.html', context)
 
 
