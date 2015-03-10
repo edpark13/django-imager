@@ -38,7 +38,14 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'profiles',
     'imager_images',
+    'django.contrib.sites',
+    'registration',
 )
+
+ACCOUNT_ACTIVATION_DAYS = 7
+REGISTRATION_AUTO_LOGIN = True
+
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
