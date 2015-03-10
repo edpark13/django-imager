@@ -43,7 +43,7 @@ INSTALLED_APPS = (
     'registration',
 )
 
-ACCOUNT_ACTIVATION_DAYS = 7
+ACCOUNT_ACTIVATION_DAYS = 1000
 REGISTRATION_AUTO_LOGIN = True
 
 
@@ -97,7 +97,7 @@ STATICFILES_DIRS = (
     STATIC_PATH,
 )
 
-
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'imager/templates')]
 
