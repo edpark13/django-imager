@@ -6,7 +6,13 @@
     <title>{% block title %}E^2{% endblock %}</title>
 </head>
 <header>
-    <p style="float:right;margin-right:10px">login</p>
+    {% if user.is_authenticated %}
+        <a href="/restricted/">Restricted Page</a><br />
+        <a href="/logout/">Logout</a><br />
+    {% else %}
+        <a href="/accounts/register/">Register Here</a><br />
+        <a href="/login/">Login</a><br />
+    {% endif %}
 </header>
 <body>
     <div id="sidebar">
