@@ -38,7 +38,14 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'profiles',
     'imager_images',
+    'django.contrib.sites',
+    'registration',
 )
+
+ACCOUNT_ACTIVATION_DAYS = 7
+REGISTRATION_AUTO_LOGIN = True
+
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -84,6 +91,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
-TEMPLATE_DIRS = [os.path.join(BASE_DIR,'imager/templates')]
+STATIC_PATH = os.path.join(BASE_DIR, 'imager/static')
+STATICFILES_DIRS = (
+    STATIC_PATH,
+)
 
-MEDIA_ROOT = [os.path.join(BASE_DIR,'imager/static')]
+
+
+TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'imager/templates')]
+
