@@ -6,6 +6,8 @@ privacy_choices = (('pub', 'public'),
                    ('pri', 'private'),
                    ('sha', 'shared'))
 
+def get_random_picture():
+    return Photo.objects.filter(published='pub').all().order_by('?')[0]
 
 @python_2_unicode_compatible
 class Photo(models.Model):
