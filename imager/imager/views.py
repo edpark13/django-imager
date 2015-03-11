@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.shortcuts import render_to_response
 from imager_images.models import get_random_picture
+from django.contrib.auth.models import User
 
 
 def home(request):
@@ -19,6 +20,15 @@ def home(request):
 @login_required
 def restricted(request):
     return HttpResponse("Since you're logged in, you can see this text!")
+
+
+@login_required
+def profile(request):
+    context = {'name': request.user}
+    return HttpResponse(context['name'])
+
+
+
 
 
 # def user_login(request):
