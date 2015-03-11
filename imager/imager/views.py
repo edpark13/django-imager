@@ -13,7 +13,7 @@ def home(request):
     context = {}
     picture = get_random_picture()
     context = {'picture': picture}
-    return render(request, 'home.html', {'context' :context})
+    return render(request, 'home.html', context)
 
 
 @login_required
