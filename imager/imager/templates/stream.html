@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Stream Page{% endblock %}
+{% load thumbnail %}
+
+{% block content %}
+{% if profile %}
+    <h2>{{ profile.user.username }}</h2>
+    {% for picture in yours %}
+        {% thumbnail picture.image "100x100" crop="center" as im %}
+        <img src="{{ im.url }}"  width="{{ im.width }}" height="{{ im.height }}">
+        {% endthumbnail %}
+    {% endfor %}
+
+    {% for picture in theres %}
+        {% thumbnail album.cover.image "100x100" crop="center" as im %}
+        <img src="{{ im.url }}"  width="{{ im.width }}" height="{{ im.height }}">
+        {% endthumbnail %}
+    {% endfor %}
+    <a href="/library">Link to the Library</a>
+    <a>Link to the Stream</a>
+{% else %}
+    <h2> There's no profile here </h2>
+{% endif %}
+{% endblock %}
