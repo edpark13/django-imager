@@ -67,6 +67,9 @@ class ImagerProfile(models.Model):
         relationship table"""
         return ImagerProfile.objects.filter(Q(following=self) & ~Q(blockers=self) & ~Q(blocking=self))
 
+    def get_unblock_following(self):
+        return ImagerProfile.objects.filter(Q(_followers=self) & ~Q(blockers=self) & ~Q(blocking=self))
+
     # def create_photo(self):
         # Might need for photo creation at a future point
         # imager_images.Photo().save()
@@ -89,3 +92,13 @@ class ImagerProfile(models.Model):
 
     def num_of_albums(self):
         return len(self.albums.all())
+
+    def get_profile_stream(self):
+        return Photo.objects.order_by('date_uploaded').all()
+
+    def get_followers_stream(self):
+        followers = self.get_unblock_following()
+        l = []
+        for f in followers:
+            l.append(f.photos.filter(Q(published='pub')))
+        return l

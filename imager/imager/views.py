@@ -36,12 +36,20 @@ def profile(request):
 def library(request):
     profile = request.user.profile
     picture = profile.photos.all()
+    for p in picture:
+        print p
     album = profile.albums.all()
     context = {'profile': profile, 'pictures': picture,
                'albums': album}
     return render(request, 'library.html', context)
 
-
+@login_required
+def stream(request):
+    profile = request.user.profile
+    yours = profile.get_profile_stream()[:20]
+    theres = profile.get_followers_stream()[:20]
+    context = {'profile': profile, 'yours': yours, 'theres': theres}
+    return render(request, 'stream.html', context)
 
 # def user_login(request):
 #     # Like before, obtain the context for the user's request.
