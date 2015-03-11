@@ -1,7 +1,9 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from imager import views
-
+from imager import settings
+from django.conf import settings as dcs
+from django.conf.urls.static import static
 
 urlpatterns = patterns('',
     # Examples:
@@ -14,3 +16,6 @@ urlpatterns = patterns('',
     # url(r'^logout/$', 'django.contrib.auth.views.logout',),
     url(r'^restricted/', views.restricted, name='restricted'),
 )
+
+if settings.DEBUG:
+    urlpatterns += static(dcs.MEDIA_URL, document_root=dcs.MEDIA_ROOT)

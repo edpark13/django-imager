@@ -6,14 +6,18 @@ privacy_choices = (('pub', 'public'),
                    ('pri', 'private'),
                    ('sha', 'shared'))
 
+
 def get_random_picture():
-    return Photo.objects.filter(published='pub').all().order_by('?')[0]
+    random_photo = Photo.objects.filter(published='pub').all().order_by('?')[0]
+    if random_photo:
+        return random_photo
+
 
 @python_2_unicode_compatible
 class Photo(models.Model):
     title = models.CharField(max_length=32, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
-    image = models.ImageField(upload_to='photos/%Y/%m/%d')
+    image = models.ImageField(upload_to='photos/test')
     date_uploaded = models.DateField(auto_now_add=True)
     date_modified = models.DateField(auto_now=True)
     date_published = models.DateField(auto_now=True)

@@ -10,6 +10,7 @@ from imager_images.models import get_random_picture
 
 
 def home(request):
+    context = {}
     picture = get_random_picture()
     context = {'picture': picture}
     return render(request, 'home.html', context)
@@ -56,9 +57,9 @@ def restricted(request):
 #         return render_to_response('registration/login.html', {}, context)
 
 
-@login_required
-def user_logout(request):
-    # Since we know the user is logged in, we can now just log them out.
-    logout(request)
+# @login_required
+# def user_logout(request):
+#     # Since we know the user is logged in, we can now just log them out.
+#     logout(request)
 
-    return HttpResponseRedirect('')
+#     return HttpResponseRedirect('')

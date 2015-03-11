@@ -3,8 +3,12 @@
 {% block title %}Home Page{% endblock %}
 
 {% block content %}
+{% if picture %}
     <h2>Is it Me</h2>
     <p>Hello</p>
+    <img src="{{ picture.image.url }}"  style="float:auto"/>
+    <p> {{ picture }} </p>
+{% else %}
     <img src="{% static 'default_background.jpg' %}" alt="Home Picture" style="float:auto"/>
-    <img src="{% 'picture' %}" style="float:auto"/>
+{% endif %}
 {% endblock %}
