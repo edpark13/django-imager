@@ -32,7 +32,7 @@ class Photo(models.Model):
 
 @python_2_unicode_compatible
 class Albums(models.Model):
-    profile = models.ForeignKey('profiles.ImagerProfile')
+    profile = models.ForeignKey('profiles.ImagerProfile', related_name='albums')
     photos = models.ManyToManyField('Photo',
                                     related_name='album')
     title = models.CharField(max_length=32, null=True, blank=True)

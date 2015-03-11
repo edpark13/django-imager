@@ -5,6 +5,7 @@ from imager import settings
 from django.conf import settings as dcs
 from django.conf.urls.static import static
 
+
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'imager.views.home', name='home'),
@@ -16,7 +17,7 @@ urlpatterns = patterns('',
     # url(r'^logout/$', 'django.contrib.auth.views.logout',),
     url(r'^profile/', 'imager.views.profile', name='profile'),
     url(r'^restricted/', views.restricted, name='restricted'),
+    # url(r'^profile/', include('profiles.urls')),
 )
-
 if settings.DEBUG:
     urlpatterns += static(dcs.MEDIA_URL, document_root=dcs.MEDIA_ROOT)

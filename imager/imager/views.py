@@ -8,6 +8,8 @@ from django.contrib.auth import logout
 from django.shortcuts import render_to_response
 from imager_images.models import get_random_picture
 
+# from profiles.models import ImagerProfile
+
 
 
 def home(request):
@@ -24,8 +26,13 @@ def restricted(request):
 
 @login_required
 def profile(request):
-    context = {'name': request.user}
-    return HttpResponse(context['name'])
+    profile = request.user.profile
+    num_picture = profile.num_of_photos()
+    num_albums = profile.num_of_albums()
+    num_followers = len(profile.followers())
+    context = {'profile': profile, 'num_pictures': num_picture,
+               'num_albums': num_albums, 'num_followers': num_followers}
+    return render(request, 'profile.html', context)
 
 
 
