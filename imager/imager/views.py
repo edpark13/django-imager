@@ -32,6 +32,14 @@ def profile(request):
     return render(request, 'profile.html', context)
 
 
+@login_required
+def library(request):
+    profile = request.user.profile
+    picture = profile.photos.all()
+    album = profile.albums.all()
+    context = {'profile': profile, 'pictures': picture,
+               'albums': album}
+    return render(request, 'library.html', context)
 
 
 

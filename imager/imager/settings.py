@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'imager_images',
     'django.contrib.sites',
     'registration',
+    'sorl.thumbnail',
 )
 
 ACCOUNT_ACTIVATION_DAYS = 1000

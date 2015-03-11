@@ -19,7 +19,7 @@ class ActiveProfileManager(models.Manager):
 class ImagerProfile(models.Model):
     """ImagerProfile class with instances that we want in a image app"""
     picture = models.ImageField(
-        upload_to='photos/test', null=True, blank=True)
+        upload_to='photos/test', null=True, blank=True, default='photos/test/packman_2.jpg')
     user = models.OneToOneField(User, related_name='profile')
     phone = models.IntegerField(max_length=11, null=True, blank=True)
     birthday = models.DateField(null=True, blank=True)
@@ -29,10 +29,10 @@ class ImagerProfile(models.Model):
     name_privacy = models.BooleanField(default=True)
     email_privacy = models.BooleanField(default=True)
     following = models.ManyToManyField('ImagerProfile', symmetrical=False,
-                                       related_name='_followers', null=True, 
+                                       related_name='_followers', null=True,
                                        blank=True)
     blocking = models.ManyToManyField('ImagerProfile', symmetrical=False,
-                                      related_name='blockers', null=True, 
+                                      related_name='blockers', null=True,
                                       blank=True)
 
     def __str__(self):
