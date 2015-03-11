@@ -6,5 +6,6 @@
     <h2>Is it Me</h2>
     <p>Hello</p>
     <img src="{% static 'default_background.jpg' %}" alt="Home Picture" style="float:auto"/>
-    <img src="{% 'picture' %}" style="float:auto"/>
+    <img src="{{ context.picture.image.url }}" alt="RANDOM PICTURE" style="float:auto"/>
+    
 {% endblock %}

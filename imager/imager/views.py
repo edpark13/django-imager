@@ -10,9 +10,10 @@ from imager_images.models import get_random_picture
 
 
 def home(request):
+    context = {}
     picture = get_random_picture()
     context = {'picture': picture}
-    return render(request, 'home.html', context)
+    return render(request, 'home.html', {'context' :context})
 
 
 @login_required
