@@ -94,7 +94,7 @@ class ImagerProfile(models.Model):
         return len(self.albums.all())
 
     def get_profile_stream(self):
-        return Photo.objects.order_by('date_uploaded').all()
+        return Photo.objects.filter(profile=self).order_by('date_uploaded').all()
 
     def get_followers_stream(self):
         followers = self.get_unblock_following()
