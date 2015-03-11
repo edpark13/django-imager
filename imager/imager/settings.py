@@ -47,7 +47,6 @@ ACCOUNT_ACTIVATION_DAYS = 1000
 REGISTRATION_AUTO_LOGIN = True
 
 
-
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
