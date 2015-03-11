@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Library Page{% endblock %}
+
+{% block content %}
+{% if profile %}
+    <h2>{{ profile.user.username }}</h2>
+    <img src="{{ profile.picture.url }}"  style="float:auto"/>
+    {% for picture in pictures %}
+        <img src="{{ picture.url }}"  style="float:auto"/>
+    {% endfor %}
+        {% for album in albums %}
+        <img src="{{ album.cover.url }}"  style="float:auto"/>
+    {% endfor %}
+    <a>Link to the Profile</a>
+    <a>Link to the Stream</a>
+{% else %}
+    <h2> There's no profile here </h2>
+{% endif %}
+{% endblock %}
