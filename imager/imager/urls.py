@@ -15,7 +15,9 @@ urlpatterns = patterns('',
     # url(r'^login/$', views.user_login, name='login'),
     # url(r'^login/$', 'django.contrib.auth.views.login', name='login'),
     # url(r'^logout/$', 'django.contrib.auth.views.logout',),
+    url(r'^profile/', 'imager.views.profile', name='profile'),
     url(r'^restricted/', views.restricted, name='restricted'),
+    # url(r'^profile/', include('profiles.urls')),
 )
 if settings.DEBUG:
     urlpatterns += static(dcs.MEDIA_URL, document_root=dcs.MEDIA_ROOT)

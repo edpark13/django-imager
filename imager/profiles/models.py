@@ -4,7 +4,6 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.db.models import Q
 from imager_images.models import Photo, Albums
 
-
 class ActiveProfileManager(models.Manager):
     """
     A manager called when active is called in ImagerProfile
@@ -20,22 +19,21 @@ class ActiveProfileManager(models.Manager):
 class ImagerProfile(models.Model):
     """ImagerProfile class with instances that we want in a image app"""
     picture = models.ImageField(
-        upload_to='profile_images',
-        height_field='100px',
-        width_field='100px',
-        blank=True)
+        upload_to='photos/test', null=True, blank=True)
     user = models.OneToOneField(User, related_name='profile')
-    phone = models.IntegerField(max_length=11, null=True)
-    birthday = models.DateField(null=True)
+    phone = models.IntegerField(max_length=11, null=True, blank=True)
+    birthday = models.DateField(null=True, blank=True)
     picture_privacy = models.BooleanField(default=True)
     phone_privacy = models.BooleanField(default=True)
     birthday_privacy = models.BooleanField(default=True)
     name_privacy = models.BooleanField(default=True)
     email_privacy = models.BooleanField(default=True)
     following = models.ManyToManyField('ImagerProfile', symmetrical=False,
-                                       related_name='_followers')
+                                       related_name='_followers', null=True, 
+                                       blank=True)
     blocking = models.ManyToManyField('ImagerProfile', symmetrical=False,
-                                      related_name='blockers')
+                                      related_name='blockers', null=True, 
+                                      blank=True)
 
     def __str__(self):
         return self.user.username
@@ -86,4 +84,8 @@ class ImagerProfile(models.Model):
         elif self in other.followers():
             return Photo.objects.filter(Q(published='pub') | Q(published='sha'))
 
+    def num_of_photos(self):
+        return len(self.photos.all())
 
+    def num_of_albums(self):
+        return len(self.albums.all())
