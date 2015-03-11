@@ -12,5 +12,5 @@ def create_profile(sender, **kwargs):
 
 @receiver(pre_delete, sender=User)
 def delete_profile(sender, **kwargs):
-    """When a User is deleted, delete the corresponding ImagerProfile"""
+    """When a User is deleted, delete the corresponding ImagerProfile"""    
     ImagerProfile.objects.get(user=kwargs.get('instance')).delete()
