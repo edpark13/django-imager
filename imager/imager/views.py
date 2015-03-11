@@ -7,7 +7,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.shortcuts import render_to_response
 from imager_images.models import get_random_picture
+<<<<<<< HEAD
 # from profiles.models import ImagerProfile
+=======
+>>>>>>> 070cf77338edf6af997d43f01c04b14d5dad3768
 from django.contrib.auth.models import User
 
 
