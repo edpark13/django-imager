@@ -13,6 +13,8 @@ def home(request):
     context = {}
     picture = get_random_picture()
     context = {'picture': picture}
+    if request.user.profile:
+        return profile(request)
     return render(request, 'home.html', context)
 
 
