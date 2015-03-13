@@ -1,9 +1,0 @@
-<h1>list of profiles</h1>
-
-<ul>
-    {% for profile in object_list %}
-    <li> 
-        <a href = "{% url 'profile_edit' id= 'profile.id' %}" > {{ profile }} </a>
-    </li>
-    {% endfor %}
-</ul>

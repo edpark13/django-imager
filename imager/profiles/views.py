@@ -8,9 +8,8 @@ from django.core.urlresolvers import reverse
 
 class ImagerProfileUpdateView(UpdateView):
     model = ImagerProfile
-    print 'HEEEEEEEEEERRRRRRRRRRRRREEEEEEEEEEEEEee'
-    # fields = ['name']
-    template_name_suffix = '_update_form'
-
-    def get_success_url(self):
-        return reverse('profile')
+    # fields = ['birthday']
+    # template_name_suffix = '_update_form'
+    template_name = 'profile_edit.html'
+    # def get_success_url(self):
+    #     return reverse('profile')

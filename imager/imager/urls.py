@@ -19,7 +19,9 @@ urlpatterns = patterns('',
     url(r'^library/', 'imager.views.library', name='library'),
     url(r'^stream/', 'imager.views.stream', name='stream'),
     url(r'^restricted/', views.restricted, name='restricted'),
+    url(r'^', include('profiles.urls'), name='edit'),
     url(r'^', include('imager_images.urls'), name='photo'),
+
     # url(r'^profile/', include('profiles.urls')),
 )
 if settings.DEBUG:
