@@ -9,18 +9,24 @@
     {% for picture in pictures %}
         {% thumbnail picture.image "100x100" crop="center" as im %}
         <img src="{{ im.url }}"  width="{{ im.width }}" height="{{ im.height }}">
+        <input type='button' onclick="window.location.href='/photo/edit/{{ picture.pk }}'" value='Edit'>
+        <br />
         {% endthumbnail %}
     {% endfor %}
 
     {% for album in albums %}
         {% thumbnail album.cover.image "100x100" crop="center" as im %}
         <img src="{{ im.url }}"  width="{{ im.width }}" height="{{ im.height }}">
+        <input type='button' onclick="window.location.href='/album/edit/{{ album.pk }}'" value='Edit'>
+        <br />
         {% endthumbnail %}
     {% endfor %}
 
 
-    <a href="/profile">Link to the Profile</a>
-    <a href="/stream">Link to the Stream</a>
+    <a href="/profile">Link to the Profile</a> <br />
+    <a href="/stream">Link to the Stream</a> <br />
+    <a href='/photo/add'>Add a Photo</a> <br />
+    <a href='/album/add'>Create an Album</a> <br />
 
 {% else %}
     <h2> There's no profile here </h2>

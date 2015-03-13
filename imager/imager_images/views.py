@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from models import Photo
-from django.views.generic import CreateView
+from models import Photo, Albums
+from django.views.generic import CreateView, UpdateView
 
 # Create your views here.
 class Add_Photo(CreateView):
@@ -11,3 +11,11 @@ class Add_Photo(CreateView):
         'title',
         'description',
         'published')
+
+class PhotoEditUpdateView(UpdateView):
+    model = Photo
+    template_name = 'photo_edit.html'
+
+class AlbumEditUpdateView(UpdateView):
+    model = Albums
+    template_name = 'album_edit.html'
