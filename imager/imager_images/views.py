@@ -12,10 +12,17 @@ class Add_Photo(CreateView):
         'description',
         'published')
 
+
 class PhotoEditUpdateView(UpdateView):
     model = Photo
     template_name = 'photo_edit.html'
 
+
 class AlbumEditUpdateView(UpdateView):
     model = Albums
     template_name = 'album_edit.html'
+
+
+class Add_Album(CreateView):
+    template_name = 'album_add.html'
+    model = Albums
