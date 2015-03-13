@@ -1,4 +1,4 @@
-from django.views.generic import ListView, UpdateView
+from django.views.generic import UpdateView
 from profiles.models import ImagerProfile
 from django.core.urlresolvers import reverse
 # from profiles.forms import ImagerProfileEditForm
