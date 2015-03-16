@@ -10,9 +10,9 @@ class Add_Photo(CreateView):
     form_class = CreatePhotoViewForm
     # model = Photo
     # template_name = 'photo_add.html'
-    def form_valid(self, form):
-        kwargs = super(Add_Photo, self).get('user')
-        # kwargs['user'] = self.request.user
+    def get_form_kwargs(self):
+        kwargs = super(Add_Photo, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
         return kwargs
 
     def get_success_url(self):
