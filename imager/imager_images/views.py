@@ -33,17 +33,16 @@ class PhotoEditUpdateView(UpdateView):
 
 class AlbumEditUpdateView(UpdateView):
     model = Photo
-    fields = ['title', 'description', 'published']
-    template_name = 'photo_edit.html'
+    fields = ['title', 'description', 'photos', 'cover', 'published']
+    template_name = 'album_edit.html'
     def dispatch(self, request, *args, **kwargs):
-        photo_profile = Photo.objects.get(id=int(self.kwargs['pk'])).profile
+        album_profile = Albums.objects.get(id=int(self.kwargs['pk'])).profile
         user_profile = ImagerProfile.objects.get(user=self.request.user)
-        if photo_profile != user_profile:
+        if album_profile != user_profile:
             return redirect('/accounts/login/')
-        return super(PhotoEditUpdateView, self).dispatch(request, *args, **kwargs)
+        return super(AlbumEditUpdateView, self).dispatch(request, *args, **kwargs)
     success_url = reverse_lazy('library')
 
-# @login_required
 class Add_Album(CreateView):
     model = Albums
     fields = ['title', 'description', 'photos', 'cover', 'published']
