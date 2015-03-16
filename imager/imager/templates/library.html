@@ -6,6 +6,7 @@
 {% block content %}
 {% if profile %}
     <h2>{{ profile.user.username }}</h2>
+    <h3> Your Pictures </h3>
     {% for picture in pictures %}
         {% thumbnail picture.image "100x100" crop="center" as im %}
         <img src="{{ im.url }}"  width="{{ im.width }}" height="{{ im.height }}">
@@ -13,7 +14,7 @@
         <br />
         {% endthumbnail %}
     {% endfor %}
-
+    <h3> Your Albums </h3>
     {% for album in albums %}
         {% thumbnail album.cover.image "100x100" crop="center" as im %}
         <img src="{{ im.url }}"  width="{{ im.width }}" height="{{ im.height }}">

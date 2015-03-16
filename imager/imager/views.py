@@ -13,10 +13,12 @@ def home(request):
     context = {}
     picture = get_random_picture()
     context = {'picture': picture}
-    if request.user.profile:
-        return profile(request)
-    return render(request, 'home.html', context)
-
+    try:
+        if request.user.profile:
+            return profile(request)
+    except AttributeError:
+        return render(request, 'home.html', context)
+        
 
 @login_required
 def restricted(request):
