@@ -8,10 +8,11 @@ privacy_choices = (('pub', 'public'),
 
 
 def get_random_picture():
-    random_photo = Photo.objects.filter(published='pub').all().order_by('?')[0]
-    if random_photo:
+    try:
+        random_photo = Photo.objects.filter(published='pub').all().order_by('?')[0]
         return random_photo
-
+    except IndexError:
+        return None
 
 @python_2_unicode_compatible
 class Photo(models.Model):
