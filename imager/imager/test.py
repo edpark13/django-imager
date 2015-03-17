@@ -52,7 +52,7 @@ class TestRegistration(TestCase):
                           'password2': 'test'})
         self.assertEqual(len(User.objects.all()), 1)
 
-class TestLogin(TestCase):
+class TestLoginandLogout(TestCase):
 
     def setUp(self):
         self.client = Client()
@@ -69,8 +69,9 @@ class TestLogin(TestCase):
         self.assertEqual(response.status_code, 200)
 
 
-
-
+    def test_logout(self):
+        response = self.client.get('/accounts/logout/')
+        self.assertEqual(response.status_code, 200)
 
 
 
