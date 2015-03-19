@@ -70,6 +70,15 @@ class ImagerProfile(models.Model):
     def get_unblock_following(self):
         return ImagerProfile.objects.filter(Q(_followers=self) & ~Q(blockers=self) & ~Q(blocking=self))
 
+    def get_stream_photos(self):
+        following = self.get_unblock_following()
+        following = list(following)
+        following.append(self)
+        photos = Photo.objects.filter(
+        profile__in=following).filter(
+        published__in=['pub', 'shd']).order_by('date_published')
+        return photos[:20]
+
     # def create_photo(self):
         # Might need for photo creation at a future point
         # imager_images.Photo().save()
@@ -97,8 +106,5 @@ class ImagerProfile(models.Model):
         return Photo.objects.filter(profile=self).order_by('date_uploaded').all()
 
     def get_followers_stream(self):
-        followers = self.get_unblock_following()
-        l = []
-        for f in followers:
-            l.append(f.photos.filter(Q(published='pub')))
-        return l
+        return self.get_unblock_following().photos.filter(published='pub').order_by('date_uploaded')
+        
