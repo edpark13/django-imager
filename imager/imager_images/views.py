@@ -32,7 +32,7 @@ class PhotoEditUpdateView(UpdateView):
     success_url = reverse_lazy('library')
 
 class AlbumEditUpdateView(UpdateView):
-    model = Photo
+    model = Albums
     fields = ['title', 'description', 'photos', 'cover', 'published']
     template_name = 'album_edit.html'
     def dispatch(self, request, *args, **kwargs):
